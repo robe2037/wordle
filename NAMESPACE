@@ -3,4 +3,8 @@
 export(filter_correct)
 export(filter_incorrect)
 export(filter_misplaced)
+export(find_correct)
+export(find_incorrect)
+export(find_misplaced)
 export(find_words)
+export(parse_word)
