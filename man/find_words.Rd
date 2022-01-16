@@ -4,10 +4,10 @@
 \alias{find_words}
 \title{Filter dictionary using regular expression}
 \usage{
-find_words(dict, pattern, negate = FALSE)
+find_words(dictionary, pattern, negate = FALSE)
 }
 \arguments{
-\item{dict}{Character vector through which to search for pattern}
+\item{dictionary}{Character vector through which to search for pattern}
 
 \item{pattern}{Regular expression to match with entries in \code{dict}}
 
@@ -20,6 +20,6 @@ Character vector
 Filter dictionary using regular expression
 }
 \examples{
-dictionary <- c("this", "is", "a", "dictionary")
+dictionary <- words::words$word
 find_words(dictionary, pattern = "^d")
 }
