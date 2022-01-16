@@ -106,3 +106,33 @@ parse_word <- function(word) {
   stringr::str_sub(word, 1:l, 1:l)
 
 }
+
+
+#' Make a single Wordle guess
+#'
+#' @description Compare a guess word to a target word and return correct,
+#'incorrect, and misplaced letters with associated index positions.
+#'
+#' @param target target of the match
+#' @param guess word to be compared to the target word
+#'
+#' @return List of length 3.
+#' The first element is a list of lists, each of which contains a letter in the
+#' guess word that was present in the target word and its associated position in the word.
+#' The second element is a character vector of letters in the guess not present in the target word.
+#' The third element is a list of lists, each of which contains a misplaced letter and its associated
+#' position in the guess
+#' @export
+#'
+#' @examples
+#' guess <- make_guess("torch", "trick")
+#' str(guess)
+make_guess <- function(target, guess) {
+
+  list(
+    correct = find_correct(target, guess),
+    incorrect = find_incorrect(target, guess),
+    misplaced = find_misplaced(target, guess)
+  )
+
+}
