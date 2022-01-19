@@ -1,22 +1,65 @@
 
-#' Identify correct, incorrect, and misplaced letters for a given target and guess word
+#' Determine letter categories for a Wordle guess
+#'
+#' Compare a guess word to a known target word and determine the index locations
+#' for all correct, incorrect, and misplaced letteres in the guess. Guess word
+#' and target word must have the same number of letters.
 #'
 #' @param target target of the match
 #' @param guess word to be compared to the target word
-#' @param idx If `TRUE` return integer index of position of correct, incorrect, or misplaced letters.
-#' If `FALSE` return letter characters themselves.
 #'
-#' @return integer or character vector
-#' @export
+#' @name find_letters
+#'
+#' @return integer vector
 #'
 #' @examples
 #' find_misplaced("torch", "trick")
 #' find_correct("torch", "trick")
-find_misplaced <- function(target, guess, idx = FALSE) {
+#' find_incorrect("torch", "trick")
+NULL
+
+#' @rdname find_letters
+#' @export
+find_correct <- function(target, guess) {
 
   stopifnot(stringr::str_count(target) == stringr::str_count(guess))
 
-  correct <- find_correct(target, guess, idx = TRUE)
+  i <- which(parse_word(target) == parse_word(guess))
+
+  if(length(i) == 0) {
+    return(NULL)
+  }
+
+  i
+
+}
+
+#' @rdname find_letters
+#' @export
+find_incorrect <- function(target, guess) {
+
+  stopifnot(stringr::str_count(target) == stringr::str_count(guess))
+
+  guess <- parse_word(guess)
+  target <- parse_word(target)
+
+  i <- which(!purrr::map_lgl(guess, ~.x %in% target))
+
+  if(length(i) == 0) {
+    return(NULL)
+  }
+
+  i
+
+}
+
+#' @rdname find_letters
+#' @export
+find_misplaced <- function(target, guess) {
+
+  stopifnot(stringr::str_count(target) == stringr::str_count(guess))
+
+  correct <- find_correct(target, guess)
 
   in_word <- which(
     purrr::map_lgl(
@@ -28,68 +71,12 @@ find_misplaced <- function(target, guess, idx = FALSE) {
   i <- setdiff(in_word, correct)
 
   if(length(i) == 0) {
-    NULL
-  } else {
-    if(idx) {
-      i
-    } else {
-      purrr::map2(
-        parse_word(guess)[i],
-        i,
-        ~list(.x, .y)
-      )
-    }
+    return(NULL)
   }
 
-}
-
-#' @rdname find_misplaced
-#' @export
-find_incorrect <- function(target, guess, idx = FALSE) {
-
-  stopifnot(stringr::str_count(target) == stringr::str_count(guess))
-
-  correct <- find_correct(target, guess, idx = TRUE)
-  misplaced <- find_misplaced(target, guess, idx = TRUE)
-
-  i <- setdiff(1:stringr::str_count(target), c(correct, misplaced))
-
-  if(length(i) == 0) {
-    NULL
-  } else {
-    if(idx) {
-      i
-    } else {
-      parse_word(guess)[i]
-    }
-  }
+  i
 
 }
-
-#' @rdname find_misplaced
-#' @export
-find_correct <- function(target, guess, idx = FALSE) {
-
-  stopifnot(stringr::str_count(target) == stringr::str_count(guess))
-
-  i <- which(parse_word(target) == parse_word(guess))
-
-  if(length(i) == 0) {
-    NULL
-  } else {
-    if(idx) {
-      i
-    } else {
-      purrr::map2(
-        parse_word(guess)[i],
-        i,
-        ~list(.x, .y)
-      )
-    }
-  }
-
-}
-
 
 #' Split word into individual letters
 #'
@@ -110,18 +97,14 @@ parse_word <- function(word) {
 
 #' Make a single Wordle guess
 #'
-#' @description Compare a guess word to a target word and return correct,
-#'incorrect, and misplaced letters with associated index positions.
+#' @description Compare a guess word to a target word and return index positions
+#' of correct, incorrect, and misplaced letters.
 #'
 #' @param target target of the match
 #' @param guess word to be compared to the target word
 #'
-#' @return List of length 3.
-#' The first element is a list of lists, each of which contains a letter in the
-#' guess word that was present in the target word and its associated position in the word.
-#' The second element is a character vector of letters in the guess not present in the target word.
-#' The third element is a list of lists, each of which contains a misplaced letter and its associated
-#' position in the guess
+#' @return List of length 3. Each list element is a vector of integers indicating
+#' index positions for the letters in the guess word in the associated category.
 #' @export
 #'
 #' @examples

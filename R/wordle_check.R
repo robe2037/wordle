@@ -25,41 +25,33 @@ check_remaining <- function(dictionary, target, guess, hide = TRUE) {
   }
 
   result <- make_guess(target, guess)
+  guess <- parse_word(guess)
 
-  correct <- result$correct
-  incorrect <- result$incorrect
-  misplaced <- result$misplaced
+  correct <- guess[result$correct]
+  incorrect <- guess[result$incorrect]
+  misplaced <- guess[result$misplaced]
 
-  if(!is.null(correct)) {
-
-    correct_words <- purrr::reduce(
-      purrr::map(
-        correct,
-        ~filter_correct(dictionary, letters = .x[[1]], positions = .x[[2]])
-      ),
-      intersect
+  if(!length(correct) == 0) {
+    correct_words <- filter_correct(
+      dictionary,
+      letters = correct,
+      positions = result$correct
     )
-
   } else {
     correct_words <- dictionary
   }
 
-  incorrect_words <- filter_incorrect(dictionary, incorrect)
+  incorrect_words <- filter_incorrect(
+    dictionary,
+    incorrect
+  )
 
-  if(!is.null(misplaced)) {
-
-    letters <- purrr::map(misplaced, ~purrr::pluck(.x, 1))
-    positions <- purrr::map(misplaced, ~purrr::pluck(.x, 2))
-
-    misplaced_words <- purrr::reduce(
-      purrr::map2(
-        letters,
-        positions,
-        ~filter_misplaced(dictionary, letters = .x, positions = .y)
-      ),
-      intersect
+  if(!length(misplaced) == 0) {
+    misplaced_words <- filter_misplaced(
+      dictionary,
+      letters = misplaced,
+      positions = result$misplaced
     )
-
   } else {
     misplaced_words <- dictionary
   }

@@ -12,16 +12,12 @@ make_guess(target, guess)
 \item{guess}{word to be compared to the target word}
 }
 \value{
-List of length 3.
-The first element is a list of lists, each of which contains a letter in the
-guess word that was present in the target word and its associated position in the word.
-The second element is a character vector of letters in the guess not present in the target word.
-The third element is a list of lists, each of which contains a misplaced letter and its associated
-position in the guess
+List of length 3. Each list element is a vector of integers indicating
+index positions for the letters in the guess word in the associated category.
 }
 \description{
-Compare a guess word to a target word and return correct,
-incorrect, and misplaced letters with associated index positions.
+Compare a guess word to a target word and return index positions
+of correct, incorrect, and misplaced letters.
 }
 \examples{
 guess <- make_guess("torch", "trick")
