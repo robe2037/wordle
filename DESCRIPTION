@@ -11,7 +11,8 @@ RoxygenNote: 7.1.2
 Imports:
     stringr,
     glue,
-    purrr
+    purrr,
+    crayon
 Suggests: 
     words (>= 1.0.1),
     testthat (>= 3.0.0)

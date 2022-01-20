@@ -97,25 +97,43 @@ parse_word <- function(word) {
 
 #' Make a single Wordle guess
 #'
-#' @description Compare a guess word to a target word and return index positions
-#' of correct, incorrect, and misplaced letters.
+#' Compare a guess word to a target word and return index positions
+#' of correct, incorrect, and misplaced letters. Optionally print guessed
+#' letters to console with colors indicating whether letters were correct,
+#' incorrect, or misplaced.
 #'
-#' @param target target of the match
-#' @param guess word to be compared to the target word
+#' @param target Target of the match
+#' @param guess Word to be compared to the target word
+#' @param quiet Should guess results be printed to console in the form of color-
+#' coded guess letters?
 #'
 #' @return List of length 3. Each list element is a vector of integers indicating
 #' index positions for the letters in the guess word in the associated category.
 #' @export
 #'
 #' @examples
-#' guess <- make_guess("torch", "trick")
-#' str(guess)
-make_guess <- function(target, guess) {
+#' result <- make_guess("torch", "trick")
+#' str(result)
+make_guess <- function(target, guess, quiet = FALSE) {
 
-  list(
+  result <- list(
     correct = find_correct(target, guess),
     incorrect = find_incorrect(target, guess),
     misplaced = find_misplaced(target, guess)
   )
+
+  guess_letters <- toupper(parse_word(guess))
+
+  if(!quiet) {
+
+    guess_letters[result$correct] <- crayon::green$bold(guess_letters[result$correct])
+    guess_letters[result$incorrect] <- crayon::red$bold(guess_letters[result$incorrect])
+    guess_letters[result$misplaced] <- crayon::yellow$bold(guess_letters[result$misplaced])
+
+    cat(paste0(guess_letters, collapse = " "))
+
+  }
+
+  invisible(result)
 
 }

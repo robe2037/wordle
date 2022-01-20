@@ -4,12 +4,15 @@
 \alias{make_guess}
 \title{Make a single Wordle guess}
 \usage{
-make_guess(target, guess)
+make_guess(target, guess, quiet = FALSE)
 }
 \arguments{
-\item{target}{target of the match}
+\item{target}{Target of the match}
 
-\item{guess}{word to be compared to the target word}
+\item{guess}{Word to be compared to the target word}
+
+\item{quiet}{Should guess results be printed to console in the form of color-
+coded guess letters?}
 }
 \value{
 List of length 3. Each list element is a vector of integers indicating
@@ -17,9 +20,11 @@ index positions for the letters in the guess word in the associated category.
 }
 \description{
 Compare a guess word to a target word and return index positions
-of correct, incorrect, and misplaced letters.
+of correct, incorrect, and misplaced letters. Optionally print guessed
+letters to console with colors indicating whether letters were correct,
+incorrect, or misplaced.
 }
 \examples{
-guess <- make_guess("torch", "trick")
-str(guess)
+result <- make_guess("torch", "trick")
+str(result)
 }
