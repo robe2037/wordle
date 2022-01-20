@@ -6,8 +6,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of wordle is to help me learn R package development workflows
-in the context of the word game taking the world by storm.
+Implementation of Wordle in R. Designed primarily for package
+development practice and for personal Wordle data tracking.
 
 ## Installation
 

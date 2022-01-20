@@ -12,10 +12,13 @@ Imports:
     stringr,
     glue,
     purrr,
-    crayon
+    crayon,
+    dplyr
 Suggests: 
     words (>= 1.0.1),
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 URL: https://github.com/robe2037/wordle
 BugReports: https://github.com/robe2037/wordle/issues
+Depends: 
+    R (>= 2.10)

@@ -143,6 +143,10 @@ filter_guess <- function(dictionary,
 
   if(!is.null(target)) {
 
+    if(guess == target) {
+      return(NULL)
+    }
+
     correct <- find_correct(target, guess)
     incorrect <- find_incorrect(target, guess)
     misplaced <- find_misplaced(target, guess)

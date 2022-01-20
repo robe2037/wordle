@@ -22,6 +22,9 @@ NULL
 #' @export
 find_correct <- function(target, guess) {
 
+  target <- clean_entry(target)
+  guess <- clean_entry(guess)
+
   stopifnot(stringr::str_count(target) == stringr::str_count(guess))
 
   i <- which(parse_word(target) == parse_word(guess))
@@ -37,6 +40,9 @@ find_correct <- function(target, guess) {
 #' @rdname find_letters
 #' @export
 find_incorrect <- function(target, guess) {
+
+  target <- clean_entry(target)
+  guess <- clean_entry(guess)
 
   stopifnot(stringr::str_count(target) == stringr::str_count(guess))
 
@@ -56,6 +62,9 @@ find_incorrect <- function(target, guess) {
 #' @rdname find_letters
 #' @export
 find_misplaced <- function(target, guess) {
+
+  target <- clean_entry(target)
+  guess <- clean_entry(guess)
 
   stopifnot(stringr::str_count(target) == stringr::str_count(guess))
 
@@ -122,7 +131,7 @@ make_guess <- function(target, guess, quiet = FALSE) {
     misplaced = find_misplaced(target, guess)
   )
 
-  guess_letters <- toupper(parse_word(guess))
+  guess_letters <- toupper(parse_word(clean_entry(guess)))
 
   if(!quiet) {
 
@@ -136,4 +145,8 @@ make_guess <- function(target, guess, quiet = FALSE) {
 
   invisible(result)
 
+}
+
+clean_entry <- function(word) {
+  tolower(stringr::str_replace_all(word, " ", ""))
 }

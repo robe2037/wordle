@@ -19,3 +19,18 @@ test_that("make_guess returns integers", {
   expect_type(make_guess("hello", "world")$incorrect, "integer")
   expect_type(make_guess("hello", "world")$misplaced, "integer")
 })
+
+test_that("make_guess prints output when requested", {
+  expect_output(make_guess("hello", "world"), "W O R L D")
+  expect_silent(make_guess("hello", "world", quiet = TRUE))
+})
+
+test_that("make_guess ignores case", {
+  expect_equal(make_guess("hello", "hAlLh", quiet = TRUE),
+               make_guess("hello", "HALLH", quiet = TRUE))
+})
+
+test_that("make_guess ignores internal spaces", {
+  expect_equal(make_guess("t a r   g e t", "te go at", quiet = TRUE),
+               make_guess("target", "tegoat", quiet = TRUE))
+})
