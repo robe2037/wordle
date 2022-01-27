@@ -77,11 +77,15 @@ play_wordle <- function(n_letters = 5) {
   )
 
   if(n_letters != 5) {
+
     dictionary <- words::words %>%
       dplyr::filter(stringr::str_count(word) == n_letters) %>%
       dplyr::pull(word)
+
   } else {
+
     dictionary <- target_dictionary
+
   }
 
   target <- sample(dictionary, 1)

@@ -21,4 +21,10 @@ devtools::install_github("robe2037/wordle")
 
 ## Example
 
-Examples coming soon…
+To play a game of Wordle:
+
+``` r
+library(wordle)
+
+play_wordle()
+```
