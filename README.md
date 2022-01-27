@@ -39,11 +39,11 @@ letters in that guess.
 ``` r
 filter_guess(
   target_dictionary,
-  guess = "flock", 
-  incorrect = c(1,4), 
-  correct = 3, 
-  misplaced = c(2, 5), 
-  hide = TRUE
+  guess = "flour", 
+  correct = c(1, 5), 
+  misplaced = 3,
+  incorrect = c(2, 4), 
+  hide = FALSE
 )
 ```
 
