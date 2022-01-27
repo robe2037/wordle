@@ -28,3 +28,46 @@ library(wordle)
 
 play_wordle()
 ```
+
+To explore how the universe of possible words changes with each guess,
+use `filter_guess()`.
+
+This will indicate the number of words remaining when provided with a
+guessed word and the locations of the incorrect, correct, and misplaced
+letters in that guess.
+
+``` r
+filter_guess(
+  target_dictionary,
+  guess = "flock", 
+  incorrect = c(1,4), 
+  correct = 3, 
+  misplaced = c(2, 5), 
+  hide = TRUE
+)
+```
+
+`filter_guess()` can also be used with a known target word to
+automatically determine the locations of the incorrect, correct, and
+misplaced letters in the guess. Setting `hide = FALSE` will show the
+words that remain rather than the number remaining.
+
+``` r
+filter_guess(
+  target_dictionary,
+  guess = "flock", 
+  target = "quack",
+  hide = FALSE
+)
+```
+
+To get stats for an entire game, use `filter_game()`:
+
+``` r
+filter_game(
+  target_dictionary,
+  guesses = c("flock", "crack", "quack"), 
+  target = "quack",
+  hide = TRUE
+)
+```
