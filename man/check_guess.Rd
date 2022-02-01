@@ -4,7 +4,7 @@
 \alias{check_guess}
 \title{Compare user input to target word}
 \usage{
-check_guess(target, n_letters, init = TRUE)
+check_guess(target, n_letters = 5, init = TRUE, remaining = 6)
 }
 \arguments{
 \item{target}{Target word of the game}
@@ -12,8 +12,10 @@ check_guess(target, n_letters, init = TRUE)
 \item{n_letters}{Number of letters of the words being used in this game}
 
 \item{init}{Whether this is the initial guess of the game}
+
+\item{remaining}{Number of tries remaining before game loss}
 }
 \description{
 Prompt user for input and provide feedback. Continue to do so until
-game is won or exited.
+game is won, lost, or exited.
 }

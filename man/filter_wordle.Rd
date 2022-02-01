@@ -7,21 +7,21 @@
 \alias{filter_misplaced}
 \title{Filter dictionary of target words using Wordle logic}
 \usage{
-filter_correct(dictionary, letters, positions)
+filter_correct(letters, positions, dict = NULL)
 
-filter_incorrect(dictionary, letters)
+filter_incorrect(letters, dict = NULL)
 
-filter_misplaced(dictionary, letters, positions)
+filter_misplaced(letters, positions, dict = NULL)
 }
 \arguments{
-\item{dictionary}{Vector of strings of possible words to match}
-
 \item{letters}{Vector of single-length character strings, indicating the letters
 that are correct, incorrect, or misplaced.}
 
 \item{positions}{For \code{filter_correct} and \code{filter_misplaced},
 vector of integers between 1 and 5 that indicates the index within
 the word where each associated misplaced letter was guessed.}
+
+\item{dict}{Vector of strings of possible words to match}
 }
 \value{
 Character vector of words in \code{dictionary} that meet specified criteria
@@ -30,11 +30,4 @@ Character vector of words in \code{dictionary} that meet specified criteria
 Restrict original dictionary of possible words to those that meet criteria
 based on information about letters that are correct, incorrect, or misplaced
 in the unknown target word.
-}
-\examples{
-dictionary <- c("cumin", "salad", "touch", "urges")
-
-filter_misplaced(dictionary, letters = c("a", "l"), positions = c(1, 2))
-filter_incorrect(dictionary, letters = c("t", "e"))
-filter_correct(dictionary, letters = c("o", "h"), positions = c(2, 5))
 }

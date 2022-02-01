@@ -4,15 +4,15 @@
 \alias{filter_game}
 \title{Filter dictionary of target words using Wordle logic}
 \usage{
-filter_game(dictionary, guesses, target, hide = TRUE)
+filter_game(guesses, target, dict = NULL, hide = TRUE)
 }
 \arguments{
-\item{dictionary}{Vector of strings of possible words to match}
-
 \item{guesses}{vector of character indicating sequential guesses}
 
 \item{target}{Word to use as comparison to \code{guess} to determine
 which letters are correct, incorrect, or misplaced.}
+
+\item{dict}{Vector of strings of possible words to match. If NULL, uses \code{dictionary} as default.}
 
 \item{hide}{If \code{TRUE}, return number of words remaining after filtering. If
 \code{FALSE}, return vector of remaining words themselves.}
@@ -33,5 +33,5 @@ dictionary <- all_words[stringr::str_count(all_words) == 5]
 target <- "panic"
 guess <- c("burst", "canoe")
 
-filter_game(dictionary, guess, target)
+filter_game(guess, target, dict = dictionary)
 }

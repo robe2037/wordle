@@ -4,22 +4,18 @@
 \alias{find_words}
 \title{Filter dictionary using regular expression}
 \usage{
-find_words(dictionary, pattern, negate = FALSE)
+find_words(pattern, dict = NULL, neg = FALSE)
 }
 \arguments{
-\item{dictionary}{Character vector through which to search for pattern}
-
 \item{pattern}{Regular expression to match with entries in \code{dict}}
 
-\item{negate}{If \code{TRUE}, include strings in \code{dict} that match with \code{pattern}. Otherwise, exclude matches.}
+\item{dict}{Vector of words through which to search for pattern}
+
+\item{neg}{If \code{TRUE}, include strings in \code{dict} that match with \code{pattern}. Otherwise, exclude matches.}
 }
 \value{
 Character vector
 }
 \description{
 Filter dictionary using regular expression
-}
-\examples{
-dictionary <- words::words$word
-find_words(dictionary, pattern = "^d")
 }

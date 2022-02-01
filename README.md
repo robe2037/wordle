@@ -21,13 +21,24 @@ devtools::install_github("robe2037/wordle")
 
 ## Example
 
-To play a game of Wordle:
+To play a game of Wordle, use `play_wordle()`:
 
 ``` r
 library(wordle)
 
 play_wordle()
 ```
+
+Simply enter your words into the R console and press \[ENTER\] to submit
+them. Submitting an empty line will quit the game and reveal the target
+word.
+
+By default, `play_wordle()` generates a game with 5 letter words, but
+the game can also be played with other word lengths. If a length other
+than 5 letters is specified, the Scrabble dictionary provided by the
+[`words`
+package](https://cran.r-project.org/web/packages/words/index.html) is
+used. Otherwise, the dictionary used in the actual Wordle game is used.
 
 To explore how the universe of possible words changes with each guess,
 use `filter_guess()`.
@@ -38,7 +49,6 @@ letters in that guess.
 
 ``` r
 filter_guess(
-  target_dictionary,
   guess = "flour", 
   correct = c(1, 5), 
   misplaced = 3,
@@ -54,7 +64,6 @@ words that remain rather than the number remaining.
 
 ``` r
 filter_guess(
-  target_dictionary,
   guess = "flock", 
   target = "quack",
   hide = FALSE
@@ -65,9 +74,13 @@ To get stats for an entire game, use `filter_game()`:
 
 ``` r
 filter_game(
-  target_dictionary,
   guesses = c("flock", "crack", "quack"), 
   target = "quack",
   hide = TRUE
 )
 ```
+
+These functions will also work for games with non-five-letter words, but
+the user must specify the dictionary that is being used for comparisons.
+The `words` package can be used to easily create a dictionary of words
+of various lengths.
