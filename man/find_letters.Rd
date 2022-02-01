@@ -23,11 +23,6 @@ integer vector
 }
 \description{
 Compare a guess word to a known target word and determine the index locations
-for all correct, incorrect, and misplaced letteres in the guess. Guess word
+for all correct, incorrect, and misplaced letters in the guess. Guess word
 and target word must have the same number of letters.
-}
-\examples{
-find_misplaced("torch", "trick")
-find_correct("torch", "trick")
-find_incorrect("torch", "trick")
 }

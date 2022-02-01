@@ -5,18 +5,16 @@
 \title{Filter dictionary of target words using Wordle logic}
 \usage{
 filter_guess(
-  dictionary,
   guess,
   target = NULL,
   correct = NULL,
   incorrect = NULL,
   misplaced = NULL,
+  dict = NULL,
   hide = TRUE
 )
 }
 \arguments{
-\item{dictionary}{Vector of strings of possible words to match}
-
 \item{guess}{String of guessed word}
 
 \item{target}{If provided, word to use as comparison to \code{guess} to determine
@@ -31,6 +29,8 @@ letters in \code{guess}}
 
 \item{misplaced}{Vector of integers indicating the index position of all misplaced
 letters in \code{guess}}
+
+\item{dict}{Vector of strings of possible words to match. If NULL, uses \code{dictionary} as default.}
 
 \item{hide}{If \code{TRUE}, return number of words remaining after filtering. If
 \code{FALSE}, return vector of remaining words themselves.}
@@ -51,13 +51,13 @@ dictionary <- all_words[stringr::str_count(all_words) == 5]
 target <- "tangy"
 guess <- "tonal"
 
-filter_guess(dictionary, guess, target)
+filter_guess(guess, target, dict = dictionary)
 
 filter_guess(
-  dictionary,
   guess,
   correct = c(1, 3),
   incorrect = c(2, 5),
-  misplaced = 4
+  misplaced = 4,
+  dict = dictionary
 )
 }

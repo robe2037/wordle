@@ -1,22 +1,21 @@
 
 #' Filter dictionary using regular expression
 #'
-#' @param dictionary Character vector through which to search for pattern
 #' @param pattern Regular expression to match with entries in `dict`
-#' @param negate If `TRUE`, include strings in `dict` that match with `pattern`. Otherwise, exclude matches.
+#' @param dict Vector of words through which to search for pattern
+#' @param neg If `TRUE`, include strings in `dict` that match with `pattern`. Otherwise, exclude matches.
 #'
 #' @return Character vector
-#' @export
-#'
-#' @examples
-#' dictionary <- words::words$word
-#' find_words(dictionary, pattern = "^d")
-find_words <- function(dictionary, pattern, negate = FALSE) {
+find_words <- function(pattern, dict = NULL, neg = FALSE) {
 
-  if(negate) {
-    dictionary[!stringr::str_detect(dictionary, pattern)]
+  if(is.null(dict)) {
+    dict <- dictionary
+  }
+
+  if(neg) {
+    dict[!stringr::str_detect(dict, pattern)]
   } else {
-    dictionary[stringr::str_detect(dictionary, pattern)]
+    dict[stringr::str_detect(dict, pattern)]
   }
 
 }
