@@ -27,11 +27,8 @@ based on information about letters that are correct, incorrect, or misplaced
 in the unknown target word.
 }
 \examples{
-all_words <- words::words$word
-dictionary <- all_words[stringr::str_count(all_words) == 5]
-
 target <- "panic"
 guess <- c("burst", "canoe")
 
-filter_game(guess, target, dict = dictionary)
+filter_game(dict = dictionary, guess, target)
 }

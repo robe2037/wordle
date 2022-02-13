@@ -55,8 +55,9 @@ check_guess <- function(target, n_letters = 5, init = TRUE, remaining = 6) {
 
   if(guess == "") {
 
-    message("Quitting? :(\n")
     make_guess(target, target)
+
+    message("\n\nQuitting? :(")
     return(invisible())
 
   }
@@ -64,6 +65,7 @@ check_guess <- function(target, n_letters = 5, init = TRUE, remaining = 6) {
   if(target == guess) {
 
     make_guess(target, guess)
+
     message("\n\nVictory!")
     return(invisible())
 
@@ -72,7 +74,12 @@ check_guess <- function(target, n_letters = 5, init = TRUE, remaining = 6) {
     make_guess(target, guess)
 
     if(remaining != 1) {
-      guess <- check_guess(target, n_letters, init = FALSE, remaining = remaining - 1)
+      guess <- check_guess(
+        target,
+        n_letters,
+        init = FALSE,
+        remaining = remaining - 1
+      )
     } else {
       message("\nToo bad...The word was:\n")
       make_guess(target, target)

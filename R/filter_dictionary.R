@@ -24,27 +24,26 @@
 #' @export
 #'
 #' @examples
-#' all_words <- words::words$word
-#' dictionary <- all_words[stringr::str_count(all_words) == 5]
-#'
 #' target <- "tangy"
 #' guess <- "tonal"
 #'
-#' filter_guess(guess, target, dict = dictionary)
+#' filter_guess(
+#'   guess = guess,
+#'   target = target
+#' )
 #'
 #' filter_guess(
-#'   guess,
+#'   guess = guess,
 #'   correct = c(1, 3),
 #'   incorrect = c(2, 5),
-#'   misplaced = 4,
-#'   dict = dictionary
+#'   misplaced = 4
 #' )
-filter_guess <- function(guess,
+filter_guess <- function(dict = NULL,
+                         guess = NULL,
                          target = NULL,
                          correct = NULL,
                          incorrect = NULL,
                          misplaced = NULL,
-                         dict = NULL,
                          hide = TRUE) {
 
   dict <- dict %||% dictionary
@@ -160,13 +159,10 @@ filter_guess <- function(guess,
 #' @export
 #'
 #' @examples
-#' all_words <- words::words$word
-#' dictionary <- all_words[stringr::str_count(all_words) == 5]
-#'
 #' target <- "panic"
 #' guess <- c("burst", "canoe")
 #'
-#' filter_game(guess, target, dict = dictionary)
+#' filter_game(dict = dictionary, guess, target)
 filter_game <- function(guesses, target, dict = NULL, hide = TRUE) {
 
   dict <- dict %||% dictionary
@@ -174,7 +170,7 @@ filter_game <- function(guesses, target, dict = NULL, hide = TRUE) {
   remaining <- list()
 
   for(guess in guesses) {
-    dict <- filter_guess(guess, target, dict = dict, hide = FALSE)
+    dict <- filter_guess(dict = dict, guess, target, hide = FALSE)
 
     if(hide) {
       remaining <- append(remaining, length(dict))
