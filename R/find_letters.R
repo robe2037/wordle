@@ -78,3 +78,37 @@ find_misplaced <- function(target, guess) {
   i
 
 }
+
+#' Get individual letter statuses for a series of guesses for a single target
+#' word
+game_info <- function(words, target) {
+
+  purrr::imap_dfr(
+    words,
+    function(w, i) {
+      correct <- tibble::tibble(
+        pos = find_correct(target, w),
+        status = "correct"
+      )
+
+      incorrect <- tibble::tibble(
+        pos = find_incorrect(target, w),
+        status = "incorrect"
+      )
+
+      misplaced <- tibble::tibble(
+        pos = find_misplaced(target, w),
+        status = "misplaced"
+      )
+
+      dplyr::bind_rows(correct, incorrect, misplaced) %>%
+        dplyr::filter(!is.na(pos)) %>%
+        dplyr::full_join(
+          tibble::tibble(letters = parse_word(w), pos = 1:5, round = i),
+          by = "pos"
+        ) %>%
+        dplyr::arrange(round, pos)
+    }
+  )
+
+}
